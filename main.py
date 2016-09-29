@@ -19,7 +19,7 @@ import ConfigParser
 import sqlite3
 import time
 import locale
-from Xlib import display
+#from Xlib import display
 from random import shuffle
 from collections import Counter
 import scrnHtml
@@ -59,668 +59,637 @@ class Topic (wx.Frame):
         self.f2_bgcolor = wx.Colour(125, 125, 125)
 
         #===============================================================
-        self.menu = wx.MenuBar(0)
+        self.menu = wx.MenuBar( 0 )
         self.m_topic = wx.Menu()
-        self.menuItem1 = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Mark All As Learned "+ u"\t" + u"Ctrl+a", wx.EmptyString, wx.ITEM_NORMAL)
-        self.menuItem1.SetBitmap(wx.ArtProvider.GetBitmap(u"gtk-ok", wx.ART_MENU))
-        self.m_topic.AppendItem(self.menuItem1)
+        self.menuItem1 = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Mark All As Learned "+ u"\t" + u"Ctrl+a", wx.EmptyString, wx.ITEM_NORMAL )
+        self.menuItem1.SetBitmap( wx.ArtProvider.GetBitmap( u"gtk-ok", wx.ART_MENU ) )
+        self.m_topic.AppendItem( self.menuItem1 )
         
-        self.menuItem2 = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Mark All To Learn", wx.EmptyString, wx.ITEM_NORMAL)
-        self.menuItem2.SetBitmap(wx.ArtProvider.GetBitmap(u"gtk-refresh", wx.ART_MENU))
-        self.m_topic.AppendItem(self.menuItem2)
-        
-        self.m_topic.AppendSeparator()
-
-        self.m_topic.AppendSeparator()
-        
-        self.menuItem6 = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Delete"+ u"\t" + u"Ctrl+d", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_topic.AppendItem(self.menuItem6)
-        
-        self.menuItem7 = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Rename"+ u"\t" + u"Ctrl+r", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_topic.AppendItem(self.menuItem7)
-        
-        self.m_menuItem_info = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Details"+ u"\t" + u"Ctrl+d", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_topic.AppendItem(self.m_menuItem_info)
+        self.menuItem2 = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Mark All To Learn", wx.EmptyString, wx.ITEM_NORMAL )
+        self.menuItem2.SetBitmap( wx.ArtProvider.GetBitmap( u"gtk-refresh", wx.ART_MENU ) )
+        self.m_topic.AppendItem( self.menuItem2 )
         
         self.m_topic.AppendSeparator()
         
-        self.menuItem_import = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Import..."+ u"\t" + u"Ctrl+i", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_topic.AppendItem(self.menuItem_import)
+        self.menuItem6 = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Delete"+ u"\t" + u"Ctrl+d", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_topic.AppendItem( self.menuItem6 )
         
-        self.menuItem3 = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Export to PDF"+ u"\t" + u"Ctrl+e", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_topic.AppendItem(self.menuItem3)
+        self.menuItem7 = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Rename"+ u"\t" + u"Ctrl+r", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_topic.AppendItem( self.menuItem7 )
         
-        self.menuItem4 = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Share"+ u"\t" + u"Ctrl+s", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_topic.AppendItem(self.menuItem4)
+        self.m_menuItem_info = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Details"+ u"\t" + u"Ctrl+i", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_topic.AppendItem( self.m_menuItem_info )
         
         self.m_topic.AppendSeparator()
         
-        self.menuItem5 = wx.MenuItem(self.m_topic, wx.ID_ANY, u"Exit"+ u"\t" + u"Ctrl+q", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_topic.AppendItem(self.menuItem5)
+        self.menuItem_import = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Import...", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_topic.AppendItem( self.menuItem_import )
         
-        self.menu.Append(self.m_topic, u"Topic") 
+        self.menuItem3 = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Export to PDF"+ u"\t" + u"Ctrl+e", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_topic.AppendItem( self.menuItem3 )
+        
+        self.menuItem4 = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Share"+ u"\t" + u"Ctrl+s", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_topic.AppendItem( self.menuItem4 )
+        
+        self.m_topic.AppendSeparator()
+        
+        self.menuItem5 = wx.MenuItem( self.m_topic, wx.ID_ANY, u"Exit"+ u"\t" + u"Ctrl+q", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_topic.AppendItem( self.menuItem5 )
+        
+        self.menu.Append( self.m_topic, u"Topic" ) 
         
         self.m_edit = wx.Menu()
-        self.menuItem19 = wx.MenuItem(self.m_edit, wx.ID_ANY, u"Edit Note"+ u"\t" + u"Ctrl+m", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_edit.AppendItem(self.menuItem19)
+        self.menuItem19 = wx.MenuItem( self.m_edit, wx.ID_ANY, u"Edit Note"+ u"\t" + u"Ctrl+m", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_edit.AppendItem( self.menuItem19 )
         
-        self.menuItem9 = wx.MenuItem(self.m_edit, wx.ID_ANY, u"Preferences..."+ u"\t" + u"Ctrl+p", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_edit.AppendItem(self.menuItem9)
+        self.menuItem9 = wx.MenuItem( self.m_edit, wx.ID_ANY, u"Preferences..."+ u"\t" + u"Ctrl+p", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_edit.AppendItem( self.menuItem9 )
         
-        self.menu.Append(self.m_edit, u"Edit") 
+        self.menu.Append( self.m_edit, u"Edit" ) 
         
         self.m_view = wx.Menu()
-        self.m_menuItem26 = wx.MenuItem(self.m_view, wx.ID_ANY, u"Slide Show"+ u"\t" + u"F4", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_view.AppendItem(self.m_menuItem26)
+        self.m_menuItem26 = wx.MenuItem( self.m_view, wx.ID_ANY, u"Slide Show"+ u"\t" + u"F4", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menuItem26 )
         
-        self.compact_view = wx.MenuItem(self.m_view, wx.ID_ANY, u"Sildeshow in Compact Mode", wx.EmptyString, wx.ITEM_CHECK)
-        self.m_view.AppendItem(self.compact_view)
+        self.compact_view = wx.MenuItem( self.m_view, wx.ID_ANY, u"Sildeshow in Compact Mode", wx.EmptyString, wx.ITEM_CHECK )
+        self.m_view.AppendItem( self.compact_view )
         
-        self.m_menuItem24 = wx.MenuItem(self.m_view, wx.ID_ANY, u"Next Note"+ u"\t" + u"F7", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_view.AppendItem(self.m_menuItem24)
+        self.m_menuItem24 = wx.MenuItem( self.m_view, wx.ID_ANY, u"Next Note"+ u"\t" + u"F7", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menuItem24 )
         
-        self.m_menuItem25 = wx.MenuItem(self.m_view, wx.ID_ANY, u"Previous Note"+ u"\t" + u"F6", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_view.AppendItem(self.m_menuItem25)
+        self.m_menuItem25 = wx.MenuItem( self.m_view, wx.ID_ANY, u"Previous Note"+ u"\t" + u"F6", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menuItem25 )
         
         self.m_view.AppendSeparator()
         
-        self.m_menuItemslider = wx.MenuItem(self.m_view, 10, u"Hide Slider"+ u"\t" + u"F6", wx.EmptyString, wx.ITEM_CHECK)
-        self.m_view.AppendItem(self.m_menuItemslider)
+        self.m_menuItemslider = wx.MenuItem( self.m_view, wx.ID_ANY, u"Hide Slider", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menuItemslider )
         
-        self.m_menuspanel = wx.MenuItem(self.m_view, wx.ID_ANY, u"Hide Side Panel"+ u"\t" + u"F6", wx.EmptyString, wx.ITEM_CHECK)
-        self.m_view.AppendItem(self.m_menuspanel)
+        self.m_menuspanel = wx.MenuItem( self.m_view, wx.ID_ANY, u"Hide Side Panel", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menuspanel )
         
-        self.m_menufscreen = wx.MenuItem(self.m_view, 12, u"Fullscreen"+ u"\t" + u"F11", wx.EmptyString, wx.ITEM_CHECK)
-        self.m_view.AppendItem(self.m_menufscreen)
+        self.m_menufscreen = wx.MenuItem( self.m_view, wx.ID_ANY, u"Fullscreen", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menufscreen )
         
-        
-        self.invert_color = wx.MenuItem(self.m_view, wx.ID_ANY, u"Invert Color", wx.EmptyString, wx.ITEM_CHECK)
-        self.m_view.AppendItem(self.invert_color)
+        self.invert_color = wx.MenuItem( self.m_view, wx.ID_ANY, u"Invert Color", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.invert_color )
         
         self.m_view.AppendSeparator()
         
         self.m_style = wx.Menu()
-        self.m_menuItem27 = wx.MenuItem(self.m_style, 0, self.lst_fontstyle[0].title(), wx.EmptyString, wx.ITEM_RADIO)
-        self.m_style.AppendItem(self.m_menuItem27)
+        self.m_menuItem27 = wx.MenuItem( self.m_style, wx.ID_ANY, u"Default", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_style.AppendItem( self.m_menuItem27 )
         
-        self.m_menuItem28 = wx.MenuItem(self.m_style, 1, self.lst_fontstyle[1].title(), wx.EmptyString, wx.ITEM_RADIO)
-        self.m_style.AppendItem(self.m_menuItem28)
+        self.m_menuItem28 = wx.MenuItem( self.m_style, wx.ID_ANY, u"Background Dark", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_style.AppendItem( self.m_menuItem28 )
         
-        self.m_menuItem29 = wx.MenuItem(self.m_style, 2, self.lst_fontstyle[2].title(), wx.EmptyString, wx.ITEM_RADIO)
-        self.m_style.AppendItem(self.m_menuItem29)
+        self.m_menuItem29 = wx.MenuItem( self.m_style, wx.ID_ANY, u"Pizza", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_style.AppendItem( self.m_menuItem29 )
         
-        self.m_menuItem30 = wx.MenuItem(self.m_style, 3, self.lst_fontstyle[3].title(), wx.EmptyString, wx.ITEM_RADIO)
-        self.m_style.AppendItem(self.m_menuItem30)
+        self.m_menuItem30 = wx.MenuItem( self.m_style, wx.ID_ANY, u"San Marino", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_style.AppendItem( self.m_menuItem30 )
         
-        self.m_menuItem31 = wx.MenuItem(self.m_style, 4, self.lst_fontstyle[4].title(), wx.EmptyString, wx.ITEM_RADIO)
-        self.m_style.AppendItem(self.m_menuItem31)
+        self.m_menuItem31 = wx.MenuItem( self.m_style, wx.ID_ANY, u"Notes", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_style.AppendItem( self.m_menuItem31 )
         
-        self.m_menuItem32 = wx.MenuItem(self.m_style, 5, self.lst_fontstyle[5].title(), wx.EmptyString, wx.ITEM_RADIO)
-        self.m_style.AppendItem(self.m_menuItem32)
+        self.m_menuItem32 = wx.MenuItem( self.m_style, wx.ID_ANY, u"Good Read", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_style.AppendItem( self.m_menuItem32 )
         
-        self.m_menuItem33 = wx.MenuItem(self.m_style, 6, self.lst_fontstyle[6].title(), wx.EmptyString, wx.ITEM_RADIO)
-        self.m_style.AppendItem(self.m_menuItem33)
+        self.m_view.AppendSubMenu( self.m_style, u"Typeface Topic" )
         
-        self.m_view.AppendSubMenu(self.m_style, u"Typeface Topic")
+        self.m_menuItem36 = wx.MenuItem( self.m_view, wx.ID_ANY, u"Zoom In", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menuItem36 )
         
-        self.m_menuItem36 = wx.MenuItem(self.m_view, 7, u"Zoom In"+ u"\t" + u"Ctrl++", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_view.AppendItem(self.m_menuItem36)
+        self.m_menuItem35 = wx.MenuItem( self.m_view, wx.ID_ANY, u"Zoom Out", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menuItem35 )
         
-        self.m_menuItem35 = wx.MenuItem(self.m_view, 8, u"Zoom Out"+ u"\t" + u"Ctrl+-", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_view.AppendItem(self.m_menuItem35)
+        self.m_menuItem37 = wx.MenuItem( self.m_view, wx.ID_ANY, u"Normal Size", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_view.AppendItem( self.m_menuItem37 )
         
-        self.m_menuItem37 = wx.MenuItem(self.m_view, 9, u"Normal Size"+ u"\t" + u"Ctrl+0", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_view.AppendItem(self.m_menuItem37)
-        
-        self.menu.Append(self.m_view, u"View") 
+        self.menu.Append( self.m_view, u"View" ) 
         
         self.m_tools = wx.Menu()
-        self.p_html_text = wx.MenuItem(self.m_tools, wx.ID_ANY, u"Process Text / Web Page"+ u"\t" + u"F5", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_tools.AppendItem(self.p_html_text)
+        self.p_html_text = wx.MenuItem( self.m_tools, wx.ID_ANY, u"Process Text / Web Page"+ u"\t" + u"F5", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_tools.AppendItem( self.p_html_text )
         
         self.m_menu21 = wx.Menu()
-        self.p_audio1 = wx.MenuItem(self.m_menu21, wx.ID_ANY, u"Process Audio", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_menu21.AppendItem(self.p_audio1)
+        self.p_audio1 = wx.MenuItem( self.m_menu21, wx.ID_ANY, u"Process Audio", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_menu21.AppendItem( self.p_audio1 )
         
-        self.p_image1 = wx.MenuItem(self.m_menu21, wx.ID_ANY, u"Process Image", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_menu21.AppendItem(self.p_image1)
+        self.p_image1 = wx.MenuItem( self.m_menu21, wx.ID_ANY, u"Process Image", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_menu21.AppendItem( self.p_image1 )
         
-        self.m_tools.AppendSubMenu(self.m_menu21, u"Addons")
+        self.m_tools.AppendSubMenu( self.m_menu21, u"Addons" )
         
-        self.menuItem10 = wx.MenuItem(self.m_tools, wx.ID_ANY, u"Topics Saved", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_tools.AppendItem(self.menuItem10)
+        self.menuItem10 = wx.MenuItem( self.m_tools, wx.ID_ANY, u"Topics Saved", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_tools.AppendItem( self.menuItem10 )
         
         self.m_tools.AppendSeparator()
         
-        self.menu.Append(self.m_tools, u"Tools") 
+        self.menu.Append( self.m_tools, u"Tools" ) 
         
         self.m_help = wx.Menu()
-        self.m_menuItem21 = wx.MenuItem(self.m_help, wx.ID_ANY, u"Getting Started", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_help.AppendItem(self.m_menuItem21)
+        self.m_menuItem21 = wx.MenuItem( self.m_help, wx.ID_ANY, u"Getting Started", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_help.AppendItem( self.m_menuItem21 )
         
-        self.menuItem12 = wx.MenuItem(self.m_help, wx.ID_ANY, u"Documentation"+ u"\t" + u"F1", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_help.AppendItem(self.menuItem12)
+        self.menuItem12 = wx.MenuItem( self.m_help, wx.ID_ANY, u"Documentation"+ u"\t" + u"F1", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_help.AppendItem( self.menuItem12 )
         
-        self.m_menuItem41 = wx.MenuItem(self.m_help, wx.ID_ANY, u"Tips", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_help.AppendItem(self.m_menuItem41)
+        self.m_menuItem41 = wx.MenuItem( self.m_help, wx.ID_ANY, u"Tips", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_help.AppendItem( self.m_menuItem41 )
         
-        self.menuItem13 = wx.MenuItem(self.m_help, wx.ID_ANY, u"Search Updates...", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_help.AppendItem(self.menuItem13)
+        self.menuItem13 = wx.MenuItem( self.m_help, wx.ID_ANY, u"Search Updates...", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_help.AppendItem( self.menuItem13 )
         
-        self.menuItem14 = wx.MenuItem(self.m_help, wx.ID_ANY, u"Suggestions / Ask a question...", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_help.AppendItem(self.menuItem14)
+        self.menuItem14 = wx.MenuItem( self.m_help, wx.ID_ANY, u"Suggestions / Ask a question...", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_help.AppendItem( self.menuItem14 )
         
-        self.menuItem15 = wx.MenuItem(self.m_help, wx.ID_ANY, u"Topics Shared", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_help.AppendItem(self.menuItem15)
+        self.menuItem15 = wx.MenuItem( self.m_help, wx.ID_ANY, u"Topics Shared", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_help.AppendItem( self.menuItem15 )
         
-        self.menuItem16 = wx.MenuItem(self.m_help, wx.ID_ANY, u"Make Donation", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_help.AppendItem(self.menuItem16)
+        self.menuItem16 = wx.MenuItem( self.m_help, wx.ID_ANY, u"Make Donation", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_help.AppendItem( self.menuItem16 )
         
-        self.menuItem17 = wx.MenuItem(self.m_help, wx.ID_ANY, u"About...", wx.EmptyString, wx.ITEM_NORMAL)
-        self.m_help.AppendItem(self.menuItem17)
+        self.menuItem17 = wx.MenuItem( self.m_help, wx.ID_ANY, u"About...", wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_help.AppendItem( self.menuItem17 )
         
-        self.menu.Append(self.m_help, u"Help") 
+        self.menu.Append( self.m_help, u"Help" ) 
         
-        self.SetMenuBar(self.menu)
+        self.SetMenuBar( self.menu )
         
-        bSizer1 = wx.BoxSizer(wx.VERTICAL)
+        bSizer1 = wx.BoxSizer( wx.VERTICAL )
         
-        #===============================================================
-        self.m_notebook1 = wx.Notebook(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
+        self.m_notebook1 = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.tab_study = wx.Panel( self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        Main = wx.BoxSizer( wx.VERTICAL )
         
-        #===============================================================
-        self.tab_study = wx.Panel(self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        Main = wx.BoxSizer(wx.VERTICAL)
-        #self.tab_study.Disable()
+        Top = wx.BoxSizer( wx.HORIZONTAL )
         
-        Top = wx.BoxSizer(wx.HORIZONTAL)
-        
-        self.p_bimage = wx.Panel(self.tab_study, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL)
-
-        self.p_bimage.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.p_bimage = wx.Panel( self.tab_study, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
+        self.p_bimage.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_HIGHLIGHT ) )
         self.p_bimage.Hide()
         
-        bSizer501 = wx.BoxSizer(wx.VERTICAL)
+        bSizer501 = wx.BoxSizer( wx.VERTICAL )
         
-        self.large_img_item = wx.StaticBitmap(self.p_bimage, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        bSizer501.Add(self.large_img_item, 1, wx.ALL|wx.EXPAND, 1)
+        self.large_img_item = wx.StaticBitmap( self.p_bimage, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer501.Add( self.large_img_item, 1, wx.ALL|wx.EXPAND, 5 )
         
         
-        self.p_bimage.SetSizer(bSizer501)
+        self.p_bimage.SetSizer( bSizer501 )
         self.p_bimage.Layout()
-        bSizer501.Fit(self.p_bimage)
-        Top.Add(self.p_bimage, 1, wx.EXPAND|wx.TOP|wx.RIGHT|wx.LEFT, 0)
+        bSizer501.Fit( self.p_bimage )
+        Top.Add( self.p_bimage, 1, wx.EXPAND|wx.TOP|wx.RIGHT|wx.LEFT, 5 )
         
-        self.p_html = wx.Panel(self.tab_study, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        self.p_html.SetBackgroundColour(wx.Colour(255, 255, 255))
+        self.p_html = wx.Panel( self.tab_study, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.p_html.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
         
-        sizer_htm = wx.BoxSizer(wx.VERTICAL)
+        sizer_htm = wx.BoxSizer( wx.VERTICAL )
         
-        self.html_field = wx.html.HtmlWindow(self.p_html, wx.ID_ANY, wx.DefaultPosition, wx.Size(-1,50), 0)
-        sizer_htm.Add(self.html_field, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5)
+        self.html_field = wx.html.HtmlWindow( self.p_html, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,50 ), 0 )
+        sizer_htm.Add( self.html_field, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
         
-    
         
-        self.p_html.SetSizer(sizer_htm)
+        self.p_html.SetSizer( sizer_htm )
         self.p_html.Layout()
-        sizer_htm.Fit(self.p_html)
-        Top.Add(self.p_html, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5)
+        sizer_htm.Fit( self.p_html )
+        Top.Add( self.p_html, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-
+        self.p_image = wx.Panel( self.tab_study, wx.ID_ANY, wx.DefaultPosition, wx.Size( 280,190 ), wx.TAB_TRAVERSAL )
+        bSizer50 = wx.BoxSizer( wx.VERTICAL )
         
+        self.p_image2 = wx.Panel( self.p_image, wx.ID_ANY, wx.DefaultPosition, wx.Size( 280,190 ), wx.TAB_TRAVERSAL )
+        self.p_image2.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
         
-        self.p_image = wx.Panel(self.tab_study, wx.ID_ANY, wx.DefaultPosition, wx.Size(280,190), wx.TAB_TRAVERSAL)
+        bSizer502 = wx.BoxSizer( wx.VERTICAL )
         
-        bSizer50 = wx.BoxSizer(wx.VERTICAL)
-        
-        self.p_image2 = wx.Panel(self.p_image, wx.ID_ANY, wx.DefaultPosition, wx.Size(280,190), wx.TAB_TRAVERSAL)
-        self.p_image2.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_WINDOW))
-        
-        bSizer502 = wx.BoxSizer(wx.VERTICAL)
-        
-        self.img_item = wx.StaticBitmap(self.p_image2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(280,190), 0)
-        bSizer502.Add(self.img_item, 0, wx.SHAPED|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        self.img_item = wx.StaticBitmap( self.p_image2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 280,190 ), 0 )
+        bSizer502.Add( self.img_item, 0, wx.SHAPED|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
         
-        self.p_image2.SetSizer(bSizer502)
+        self.p_image2.SetSizer( bSizer502 )
         self.p_image2.Layout()
-        bSizer50.Add(self.p_image2, 0, wx.ALIGN_CENTER_HORIZONTAL, 5)
+        bSizer50.Add( self.p_image2, 0, wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        self.p_media = wx.Panel(self.p_image, wx.ID_ANY, wx.DefaultPosition, wx.Size(280,32), wx.TAB_TRAVERSAL)
-        self.p_media.SetBackgroundColour(wx.Colour(255, 255, 255))
-        self.p_media.SetMinSize(wx.Size(-1,32))
+        self.p_media = wx.Panel( self.p_image, wx.ID_ANY, wx.DefaultPosition, wx.Size( 280,20 ), wx.TAB_TRAVERSAL )
+        self.p_media.SetBackgroundColour( wx.Colour( 208, 208, 208 ) )
+        self.p_media.SetMinSize( wx.Size( -1,20 ) )
         
-        bSizer5021 = wx.BoxSizer(wx.HORIZONTAL)
+        bSizer5021 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.b_play_enc = wx.BitmapButton(self.p_media, wx.ID_ANY, wx.ArtProvider.GetBitmap(u"gtk-media-play", wx.ART_MENU), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.NO_BORDER)
-        bSizer5021.Add(self.b_play_enc, 0, 0, 5)
+        self.b_play_enc = wx.BitmapButton( self.p_media, wx.ID_ANY, wx.ArtProvider.GetBitmap( u"gtk-media-play", wx.ART_MENU ), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.NO_BORDER )
+        bSizer5021.Add( self.b_play_enc, 0, 0, 5 )
         
-        self.playbackSlider = wx.Slider(self.p_media, wx.ID_ANY, 50, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL)
-        bSizer5021.Add(self.playbackSlider, 1, wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5)
-        self.playbackSlider.SetValue(0)
+        self.playbackSlider = wx.Slider( self.p_media, wx.ID_ANY, 50, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
+        bSizer5021.Add( self.playbackSlider, 1, wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         
-        self.p_media.SetSizer(bSizer5021)
+        self.p_media.SetSizer( bSizer5021 )
         self.p_media.Layout()
-        bSizer50.Add(self.p_media, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5)
+        bSizer50.Add( self.p_media, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
         
         
-        self.p_image.SetSizer(bSizer50)
+        self.p_image.SetSizer( bSizer50 )
         self.p_image.Layout()
-        Top.Add(self.p_image, 0, wx.EXPAND, 5)
+        Top.Add( self.p_image, 0, wx.EXPAND, 5 )
         
         
-        Main.Add(Top, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        Main.Add( Top, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        #self.stts_slider = wx.Slider(self.tab_study, wx.ID_ANY, 0, 0, 100, wx.DefaultPosition, wx.Size(-1,20), wx.SL_BOTTOM|wx.SL_HORIZONTAL|wx.SL_SELRANGE|wx.SL_TOP)
-        #self.stts_slider.SetBackgroundColour(wx.Colour(192, 192, 192))
-        #Main.Add(self.stts_slider, 0, wx.EXPAND|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_HORIZONTAL, 5)
-        #self.stts_slider.Hide()
+        Botton = wx.BoxSizer( wx.HORIZONTAL )
         
+        bSizer484 = wx.BoxSizer( wx.VERTICAL )
         
-        Botton = wx.BoxSizer(wx.HORIZONTAL)
+        self.m_auiToolBar1 = wx.aui.AuiToolBar( self.tab_study, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,100 ), wx.aui.AUI_TB_HORZ_LAYOUT|wx.aui.AUI_TB_HORZ_TEXT|wx.aui.AUI_TB_NO_AUTORESIZE|wx.aui.AUI_TB_TEXT )
+        self.m_auiToolBar1.SetToolSeparation( 10 )
+        self.m_auiToolBar1.SetMargins( wx.Size( 0,0 ) )
+        self.m_auiToolBar1.SetToolPacking( 5 )
+        self.b_previous = wx.BitmapButton( self.m_auiToolBar1, wx.ID_ANY, wx.Bitmap( u"/usr/share/sniparse/images/previous.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.NO_BORDER )
+        self.m_auiToolBar1.AddControl( self.b_previous )
+        self.b_lists = wx.BitmapButton( self.m_auiToolBar1, wx.ID_ANY, wx.Bitmap( u"/usr/share/sniparse/images/lists.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.NO_BORDER )
+        self.m_auiToolBar1.AddControl( self.b_lists )
+        self.b_next = wx.BitmapButton( self.m_auiToolBar1, wx.ID_ANY, wx.Bitmap( u"/usr/share/sniparse/images/next.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.NO_BORDER )
+        self.b_next.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
         
-        bSizer484 = wx.BoxSizer(wx.VERTICAL)
-        
-        self.m_auiToolBar1 = wx.aui.AuiToolBar(self.tab_study, wx.ID_ANY, wx.DefaultPosition, wx.Size(-1,100), wx.aui.AUI_TB_HORZ_LAYOUT|wx.aui.AUI_TB_HORZ_TEXT|wx.aui.AUI_TB_NO_AUTORESIZE|wx.aui.AUI_TB_TEXT)
-        self.m_auiToolBar1.SetToolSeparation(15)
-        self.m_auiToolBar1.SetMargins(wx.Size(0,0))
-        self.m_auiToolBar1.SetToolPacking(5)
-        self.b_previous = wx.BitmapButton(self.m_auiToolBar1, wx.ID_ANY, wx.Bitmap(u"/usr/share/sniparse/images/previous.png", wx.BITMAP_TYPE_ANY), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.NO_BORDER)
-        self.m_auiToolBar1.AddControl(self.b_previous)
-        self.b_lists = wx.BitmapButton(self.m_auiToolBar1, wx.ID_ANY, wx.Bitmap(u"/usr/share/sniparse/images/lists.png", wx.BITMAP_TYPE_ANY), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.NO_BORDER)
-        self.m_auiToolBar1.AddControl(self.b_lists)
-        self.b_next = wx.BitmapButton(self.m_auiToolBar1, wx.ID_ANY, wx.Bitmap(u"/usr/share/sniparse/images/next.png", wx.BITMAP_TYPE_ANY), wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|wx.NO_BORDER)
-        self.b_next.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU))
-        
-        self.m_auiToolBar1.AddControl(self.b_next)
+        self.m_auiToolBar1.AddControl( self.b_next )
         self.m_auiToolBar1.Realize() 
         
-        bSizer484.Add(self.m_auiToolBar1, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        bSizer484.Add( self.m_auiToolBar1, 0, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
         
-        Botton.Add(bSizer484, 1, wx.ALIGN_BOTTOM, 5)
+        Botton.Add( bSizer484, 1, wx.ALIGN_BOTTOM, 5 )
         
         
-        Main.Add(Botton, 0, wx.EXPAND, 5)
+        Main.Add( Botton, 0, wx.EXPAND, 5 )
         
         
-        self.tab_study.SetSizer(Main)
+        self.tab_study.SetSizer( Main )
         self.tab_study.Layout()
-        Main.Fit(self.tab_study)
-        self.m_notebook1.AddPage(self.tab_study, u"Study", True)
+        Main.Fit( self.tab_study )
+        self.m_notebook1.AddPage( self.tab_study, u"Study", True )
+        self.tab_practice = wx.Panel( self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.tab_practice.SetBackgroundColour( wx.Colour( 255, 255, 255 ) )
         
-        #===============================================================
-        self.tab_practice = wx.Panel(self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        #self.tab_practice.SetBackgroundColour(wx.Colour(255, 255, 255))
+        Sizer_practice = wx.BoxSizer( wx.VERTICAL )
         
-        Sizer_practice = wx.BoxSizer(wx.VERTICAL)
+        Sizer_horizontal = wx.BoxSizer( wx.HORIZONTAL )
         
-        Sizer_horizontal = wx.BoxSizer(wx.HORIZONTAL)
+        self.panel_img = wx.Panel( self.tab_practice, wx.ID_ANY, wx.DefaultPosition, wx.Size( 230,-1 ), wx.TAB_TRAVERSAL )
+        Sizer_img = wx.BoxSizer( wx.VERTICAL )
         
-        self.panel_img = wx.Panel(self.tab_practice, wx.ID_ANY, wx.DefaultPosition, wx.Size(230,-1), wx.TAB_TRAVERSAL)
-        Sizer_img = wx.BoxSizer(wx.VERTICAL)
+        Grid_img = wx.GridSizer( 0, 2, 0, 0 )
         
-        Grid_img = wx.GridSizer(0, 2, 0, 0)
+        Sizer_img_0 = wx.BoxSizer( wx.VERTICAL )
         
-        Sizer_img_0 = wx.BoxSizer(wx.VERTICAL)
+        SSizer_img_0 = wx.BoxSizer( wx.VERTICAL )
         
-        SSizer_img_0 = wx.BoxSizer(wx.VERTICAL)
+        SSizer_img_0.SetMinSize( wx.Size( 37,58 ) ) 
+        self.Panel_img_0 = wx.Panel( self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.Panel_img_0.SetExtraStyle( wx.WS_EX_VALIDATE_RECURSIVELY )
         
-        SSizer_img_0.SetMinSize(wx.Size(37,58)) 
-        self.Panel_img_0 = wx.Panel(self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        self.Panel_img_0.SetExtraStyle(wx.WS_EX_VALIDATE_RECURSIVELY)
+        SSSizer_img_0 = wx.BoxSizer( wx.HORIZONTAL )
         
-        SSSizer_img_0 = wx.BoxSizer(wx.HORIZONTAL)
+        self.Q0_0 = wx.StaticBitmap( self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_0.Add( self.Q0_0, 0, 0, 5 )
         
-        self.Q0_0 = wx.StaticBitmap(self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_0.Add(self.Q0_0, 0, 0, 5)
+        self.Q0_1 = wx.StaticBitmap( self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_0.Add( self.Q0_1, 0, 0, 5 )
         
-        self.Q0_1 = wx.StaticBitmap(self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_0.Add(self.Q0_1, 0, 0, 5)
+        self.Q0_2 = wx.StaticBitmap( self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_0.Add( self.Q0_2, 0, 0, 5 )
         
-        self.Q0_2 = wx.StaticBitmap(self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_0.Add(self.Q0_2, 0, 0, 5)
+        self.Q0_3 = wx.StaticBitmap( self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_0.Add( self.Q0_3, 0, 0, 5 )
         
-        self.Q0_3 = wx.StaticBitmap(self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_0.Add(self.Q0_3, 0, 0, 5)
-        
-        self.Q0_4 = wx.StaticBitmap(self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_0.Add(self.Q0_4, 0, 0, 5)
+        self.Q0_4 = wx.StaticBitmap( self.Panel_img_0, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_0.Add( self.Q0_4, 0, 0, 5 )
         
         
-        self.Panel_img_0.SetSizer(SSSizer_img_0)
+        self.Panel_img_0.SetSizer( SSSizer_img_0 )
         self.Panel_img_0.Layout()
-        SSSizer_img_0.Fit(self.Panel_img_0)
-        SSizer_img_0.Add(self.Panel_img_0, 0, wx.RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        SSSizer_img_0.Fit( self.Panel_img_0 )
+        SSizer_img_0.Add( self.Panel_img_0, 0, wx.RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        self.Panel_label_0 = wx.Panel(self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        Sizer2_label0 = wx.BoxSizer(wx.VERTICAL)
+        self.Panel_label_0 = wx.Panel( self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        Sizer2_label0 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelq_0 = wx.StaticText(self.Panel_label_0, wx.ID_ANY, u"Flashcards\n", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT)
-        self.labelq_0.Wrap(-1)
-        self.labelq_0.SetFont(wx.Font(7, 70, 90, 90, False, wx.EmptyString))
+        self.labelq_0 = wx.StaticText( self.Panel_label_0, wx.ID_ANY, u"Flashcards\n", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
+        self.labelq_0.Wrap( -1 )
+        self.labelq_0.SetFont( wx.Font( 7, 70, 90, 90, False, wx.EmptyString ) )
         
-        Sizer2_label0.Add(self.labelq_0, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 10)
+        Sizer2_label0.Add( self.labelq_0, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 10 )
         
         
-        self.Panel_label_0.SetSizer(Sizer2_label0)
+        self.Panel_label_0.SetSizer( Sizer2_label0 )
         self.Panel_label_0.Layout()
-        Sizer2_label0.Fit(self.Panel_label_0)
-        SSizer_img_0.Add(self.Panel_label_0, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.RIGHT|wx.EXPAND, 5)
+        Sizer2_label0.Fit( self.Panel_label_0 )
+        SSizer_img_0.Add( self.Panel_label_0, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.RIGHT|wx.EXPAND, 5 )
         
         
-        Sizer_img_0.Add(SSizer_img_0, 0, wx.ALIGN_CENTER_HORIZONTAL, 20)
+        Sizer_img_0.Add( SSizer_img_0, 0, wx.ALIGN_CENTER_HORIZONTAL, 20 )
         
         
-        Grid_img.Add(Sizer_img_0, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5)
+        Grid_img.Add( Sizer_img_0, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        Sizer_img_1 = wx.BoxSizer(wx.VERTICAL)
+        Sizer_img_1 = wx.BoxSizer( wx.VERTICAL )
         
-        SSizer_img_1 = wx.BoxSizer(wx.VERTICAL)
+        SSizer_img_1 = wx.BoxSizer( wx.VERTICAL )
         
-        SSizer_img_1.SetMinSize(wx.Size(37,58)) 
-        self.Panel_img_1 = wx.Panel(self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        SSSizer_img_1 = wx.BoxSizer(wx.HORIZONTAL)
+        SSizer_img_1.SetMinSize( wx.Size( 37,58 ) ) 
+        self.Panel_img_1 = wx.Panel( self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        SSSizer_img_1 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.Q1_0 = wx.StaticBitmap(self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_1.Add(self.Q1_0, 0, 0, 5)
+        self.Q1_0 = wx.StaticBitmap( self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_1.Add( self.Q1_0, 0, 0, 5 )
         
-        self.Q1_1 = wx.StaticBitmap(self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_1.Add(self.Q1_1, 0, 0, 5)
+        self.Q1_1 = wx.StaticBitmap( self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_1.Add( self.Q1_1, 0, 0, 5 )
         
-        self.Q1_2 = wx.StaticBitmap(self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_1.Add(self.Q1_2, 0, 0, 5)
+        self.Q1_2 = wx.StaticBitmap( self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_1.Add( self.Q1_2, 0, 0, 5 )
         
-        self.Q1_3 = wx.StaticBitmap(self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_1.Add(self.Q1_3, 0, 0, 5)
+        self.Q1_3 = wx.StaticBitmap( self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_1.Add( self.Q1_3, 0, 0, 5 )
         
-        self.Q1_4 = wx.StaticBitmap(self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_1.Add(self.Q1_4, 0, 0, 5)
+        self.Q1_4 = wx.StaticBitmap( self.Panel_img_1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_1.Add( self.Q1_4, 0, 0, 5 )
         
         
-        self.Panel_img_1.SetSizer(SSSizer_img_1)
+        self.Panel_img_1.SetSizer( SSSizer_img_1 )
         self.Panel_img_1.Layout()
-        SSSizer_img_1.Fit(self.Panel_img_1)
-        SSizer_img_1.Add(self.Panel_img_1, 0, wx.LEFT|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        SSSizer_img_1.Fit( self.Panel_img_1 )
+        SSizer_img_1.Add( self.Panel_img_1, 0, wx.LEFT|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        self.Panel_label_1 = wx.Panel(self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        Sizer2_label1 = wx.BoxSizer(wx.VERTICAL)
+        self.Panel_label_1 = wx.Panel( self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        Sizer2_label1 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelq_1 = wx.StaticText(self.Panel_label_1, wx.ID_ANY, u"Multiple\nChoise", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT)
-        self.labelq_1.Wrap(-1)
-        self.labelq_1.SetFont(wx.Font(7, 70, 90, 90, False, wx.EmptyString))
+        self.labelq_1 = wx.StaticText( self.Panel_label_1, wx.ID_ANY, u"Multiple\nChoise", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
+        self.labelq_1.Wrap( -1 )
+        self.labelq_1.SetFont( wx.Font( 7, 70, 90, 90, False, wx.EmptyString ) )
         
-        Sizer2_label1.Add(self.labelq_1, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 10)
+        Sizer2_label1.Add( self.labelq_1, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 10 )
         
         
-        self.Panel_label_1.SetSizer(Sizer2_label1)
+        self.Panel_label_1.SetSizer( Sizer2_label1 )
         self.Panel_label_1.Layout()
-        Sizer2_label1.Fit(self.Panel_label_1)
-        SSizer_img_1.Add(self.Panel_label_1, 1, wx.EXPAND|wx.LEFT|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        Sizer2_label1.Fit( self.Panel_label_1 )
+        SSizer_img_1.Add( self.Panel_label_1, 1, wx.EXPAND|wx.LEFT|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
         
-        Sizer_img_1.Add(SSizer_img_1, 0, wx.ALIGN_CENTER_HORIZONTAL, 20)
+        Sizer_img_1.Add( SSizer_img_1, 0, wx.ALIGN_CENTER_HORIZONTAL, 20 )
         
         
-        Grid_img.Add(Sizer_img_1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.RIGHT|wx.ALIGN_CENTER_VERTICAL, 5)
+        Grid_img.Add( Sizer_img_1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.RIGHT|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        Sizer_img_2 = wx.BoxSizer(wx.VERTICAL)
+        Sizer_img_2 = wx.BoxSizer( wx.VERTICAL )
         
-        SSizer_img_2 = wx.BoxSizer(wx.VERTICAL)
+        SSizer_img_2 = wx.BoxSizer( wx.VERTICAL )
         
-        SSizer_img_2.SetMinSize(wx.Size(37,58)) 
-        self.Panel_img_2 = wx.Panel(self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        SSSizer_img_2 = wx.BoxSizer(wx.HORIZONTAL)
+        SSizer_img_2.SetMinSize( wx.Size( 37,58 ) ) 
+        self.Panel_img_2 = wx.Panel( self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        SSSizer_img_2 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.Q2_0 = wx.StaticBitmap(self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_2.Add(self.Q2_0, 0, 0, 5)
+        self.Q2_0 = wx.StaticBitmap( self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_2.Add( self.Q2_0, 0, 0, 5 )
         
-        self.Q2_1 = wx.StaticBitmap(self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_2.Add(self.Q2_1, 0, 0, 5)
+        self.Q2_1 = wx.StaticBitmap( self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_2.Add( self.Q2_1, 0, 0, 5 )
         
-        self.Q2_2 = wx.StaticBitmap(self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_2.Add(self.Q2_2, 0, 0, 5)
+        self.Q2_2 = wx.StaticBitmap( self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_2.Add( self.Q2_2, 0, 0, 5 )
         
-        self.Q2_3 = wx.StaticBitmap(self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_2.Add(self.Q2_3, 0, 0, 5)
+        self.Q2_3 = wx.StaticBitmap( self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_2.Add( self.Q2_3, 0, 0, 5 )
         
-        self.Q2_4 = wx.StaticBitmap(self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_2.Add(self.Q2_4, 0, 0, 5)
+        self.Q2_4 = wx.StaticBitmap( self.Panel_img_2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_2.Add( self.Q2_4, 0, 0, 5 )
         
         
-        self.Panel_img_2.SetSizer(SSSizer_img_2)
+        self.Panel_img_2.SetSizer( SSSizer_img_2 )
         self.Panel_img_2.Layout()
-        SSSizer_img_2.Fit(self.Panel_img_2)
-        SSizer_img_2.Add(self.Panel_img_2, 0, wx.RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        SSSizer_img_2.Fit( self.Panel_img_2 )
+        SSizer_img_2.Add( self.Panel_img_2, 0, wx.RIGHT|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        self.Panel_label_2 = wx.Panel(self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        Sizer2_label2 = wx.BoxSizer(wx.VERTICAL)
+        self.Panel_label_2 = wx.Panel( self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        Sizer2_label2 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelq_2 = wx.StaticText(self.Panel_label_2, wx.ID_ANY, u"Recognize\nPronunciation", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT)
-        self.labelq_2.Wrap(-1)
-        self.labelq_2.SetFont(wx.Font(7, 70, 90, 90, False, wx.EmptyString))
+        self.labelq_2 = wx.StaticText( self.Panel_label_2, wx.ID_ANY, u"Recognize\nPronunciation", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
+        self.labelq_2.Wrap( -1 )
+        self.labelq_2.SetFont( wx.Font( 7, 70, 90, 90, False, wx.EmptyString ) )
         
-        Sizer2_label2.Add(self.labelq_2, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 10)
+        Sizer2_label2.Add( self.labelq_2, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 10 )
         
         
-        self.Panel_label_2.SetSizer(Sizer2_label2)
+        self.Panel_label_2.SetSizer( Sizer2_label2 )
         self.Panel_label_2.Layout()
-        Sizer2_label2.Fit(self.Panel_label_2)
-        SSizer_img_2.Add(self.Panel_label_2, 1, wx.RIGHT|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        Sizer2_label2.Fit( self.Panel_label_2 )
+        SSizer_img_2.Add( self.Panel_label_2, 1, wx.RIGHT|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
         
-        Sizer_img_2.Add(SSizer_img_2, 0, wx.TOP|wx.ALIGN_CENTER_HORIZONTAL, 20)
+        Sizer_img_2.Add( SSizer_img_2, 0, wx.TOP|wx.ALIGN_CENTER_HORIZONTAL, 20 )
         
         
-        Grid_img.Add(Sizer_img_2, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.LEFT, 5)
+        Grid_img.Add( Sizer_img_2, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.LEFT, 5 )
         
-        Sizer_img_3 = wx.BoxSizer(wx.VERTICAL)
+        Sizer_img_3 = wx.BoxSizer( wx.VERTICAL )
         
-        SSizer_img_3 = wx.BoxSizer(wx.VERTICAL)
+        SSizer_img_3 = wx.BoxSizer( wx.VERTICAL )
         
-        SSizer_img_3.SetMinSize(wx.Size(37,58)) 
-        self.Panel_img_3 = wx.Panel(self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        SSSizer_img_3 = wx.BoxSizer(wx.HORIZONTAL)
+        SSizer_img_3.SetMinSize( wx.Size( 37,58 ) ) 
+        self.Panel_img_3 = wx.Panel( self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        SSSizer_img_3 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.Q3_0 = wx.StaticBitmap(self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_3.Add(self.Q3_0, 0, 0, 5)
+        self.Q3_0 = wx.StaticBitmap( self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_3.Add( self.Q3_0, 0, 0, 5 )
         
-        self.Q3_1 = wx.StaticBitmap(self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_3.Add(self.Q3_1, 0, 0, 5)
+        self.Q3_1 = wx.StaticBitmap( self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_3.Add( self.Q3_1, 0, 0, 5 )
         
-        self.Q3_2 = wx.StaticBitmap(self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_3.Add(self.Q3_2, 0, 0, 5)
+        self.Q3_2 = wx.StaticBitmap( self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_3.Add( self.Q3_2, 0, 0, 5 )
         
-        self.Q3_3 = wx.StaticBitmap(self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_3.Add(self.Q3_3, 0, 0, 5)
+        self.Q3_3 = wx.StaticBitmap( self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_3.Add( self.Q3_3, 0, 0, 5 )
         
-        self.Q3_4 = wx.StaticBitmap(self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0)
-        SSSizer_img_3.Add(self.Q3_4, 0, 0, 5)
+        self.Q3_4 = wx.StaticBitmap( self.Panel_img_3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+        SSSizer_img_3.Add( self.Q3_4, 0, 0, 5 )
         
         
-        self.Panel_img_3.SetSizer(SSSizer_img_3)
+        self.Panel_img_3.SetSizer( SSSizer_img_3 )
         self.Panel_img_3.Layout()
-        SSSizer_img_3.Fit(self.Panel_img_3)
-        SSizer_img_3.Add(self.Panel_img_3, 0, wx.LEFT|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        SSSizer_img_3.Fit( self.Panel_img_3 )
+        SSizer_img_3.Add( self.Panel_img_3, 0, wx.LEFT|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        self.Panel_label_3 = wx.Panel(self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        Sizer2_label3 = wx.BoxSizer(wx.VERTICAL)
+        self.Panel_label_3 = wx.Panel( self.panel_img, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        Sizer2_label3 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelq_3 = wx.StaticText(self.Panel_label_3, wx.ID_ANY, u"Write\nSentences", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT)
-        self.labelq_3.Wrap(-1)
-        self.labelq_3.SetFont(wx.Font(7, 70, 90, 90, False, wx.EmptyString))
+        self.labelq_3 = wx.StaticText( self.Panel_label_3, wx.ID_ANY, u"Write\nSentences", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
+        self.labelq_3.Wrap( -1 )
+        self.labelq_3.SetFont( wx.Font( 7, 70, 90, 90, False, wx.EmptyString ) )
         
-        Sizer2_label3.Add(self.labelq_3, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 10)
+        Sizer2_label3.Add( self.labelq_3, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 10 )
         
         
-        self.Panel_label_3.SetSizer(Sizer2_label3)
+        self.Panel_label_3.SetSizer( Sizer2_label3 )
         self.Panel_label_3.Layout()
-        Sizer2_label3.Fit(self.Panel_label_3)
-        SSizer_img_3.Add(self.Panel_label_3, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND|wx.LEFT, 5)
+        Sizer2_label3.Fit( self.Panel_label_3 )
+        SSizer_img_3.Add( self.Panel_label_3, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND|wx.LEFT, 5 )
         
         
-        Sizer_img_3.Add(SSizer_img_3, 0, wx.TOP|wx.ALIGN_CENTER_HORIZONTAL, 20)
+        Sizer_img_3.Add( SSizer_img_3, 0, wx.TOP|wx.ALIGN_CENTER_HORIZONTAL, 20 )
         
         
-        Grid_img.Add(Sizer_img_3, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.RIGHT, 5)
+        Grid_img.Add( Sizer_img_3, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.RIGHT, 5 )
         
         
-        Sizer_img.Add(Grid_img, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 20)
+        Sizer_img.Add( Grid_img, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 20 )
         
         
-        self.panel_img.SetSizer(Sizer_img)
+        self.panel_img.SetSizer( Sizer_img )
         self.panel_img.Layout()
-        Sizer_horizontal.Add(self.panel_img, 0, wx.TOP|wx.EXPAND, 10)
+        Sizer_horizontal.Add( self.panel_img, 0, wx.TOP|wx.EXPAND, 10 )
         
-        Ssizer_practice = wx.BoxSizer(wx.VERTICAL)
+        Ssizer_practice = wx.BoxSizer( wx.VERTICAL )
         
-        Sizer_top = wx.BoxSizer(wx.HORIZONTAL)
+        Sizer_top = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.Panel_top = wx.Panel(self.tab_practice, wx.ID_ANY, wx.DefaultPosition, wx.Size(-1,18), wx.TAB_TRAVERSAL)
-        self.Panel_top.SetBackgroundColour(wx.Colour(148, 148, 148))
+        self.Panel_top = wx.Panel( self.tab_practice, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,18 ), wx.TAB_TRAVERSAL )
+        self.Panel_top.SetBackgroundColour( wx.Colour( 148, 148, 148 ) )
         
-        Ssizer_top = wx.BoxSizer(wx.HORIZONTAL)
+        Ssizer_top = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.top_img = wx.StaticBitmap(self.Panel_top, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size(15,10), 0)
-        Ssizer_top.Add(self.top_img, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5)
+        self.top_img = wx.StaticBitmap( self.Panel_top, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 15,10 ), 0 )
+        Ssizer_top.Add( self.top_img, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.top_info = wx.StaticText(self.Panel_top, wx.ID_ANY, u" ", wx.DefaultPosition, wx.DefaultSize, 0)
-        self.top_info.Wrap(-1)
-        self.top_info.SetFont(wx.Font(7, 70, 90, 90, False, wx.EmptyString))
-        self.top_info.SetForegroundColour(wx.Colour(255, 255, 255))
+        self.top_info = wx.StaticText( self.Panel_top, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.top_info.Wrap( -1 )
+        self.top_info.SetFont( wx.Font( 7, 70, 90, 90, False, wx.EmptyString ) )
+        self.top_info.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
         
-        Ssizer_top.Add(self.top_info, 1, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 2)
+        Ssizer_top.Add( self.top_info, 1, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 2 )
         
         
-        self.Panel_top.SetSizer(Ssizer_top)
+        self.Panel_top.SetSizer( Ssizer_top )
         self.Panel_top.Layout()
-        Sizer_top.Add(self.Panel_top, 1, 0, 5)
+        Sizer_top.Add( self.Panel_top, 1, 0, 5 )
         
         
-        Ssizer_practice.Add(Sizer_top, 0, wx.EXPAND, 5)
+        Ssizer_practice.Add( Sizer_top, 0, wx.EXPAND, 5 )
         
-        self.panel_practice = wx.Panel(self.tab_practice, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        self.panel_practice.SetBackgroundColour(wx.Colour(148, 148, 148))
+        self.panel_practice = wx.Panel( self.tab_practice, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.panel_practice.SetBackgroundColour( wx.Colour( 148, 148, 148 ) )
         
-        Sizer_p = wx.BoxSizer(wx.VERTICAL)
+        Sizer_p = wx.BoxSizer( wx.VERTICAL )
         
-        Ssizer_p = wx.BoxSizer(wx.VERTICAL)
+        Ssizer_p = wx.BoxSizer( wx.VERTICAL )
         
-        self.Panel_practice_2 = wx.Panel(self.panel_practice, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        self.Panel_practice_2.SetBackgroundColour(wx.Colour(175, 175, 175))
+        self.Panel_practice_2 = wx.Panel( self.panel_practice, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.Panel_practice_2.SetBackgroundColour( wx.Colour( 175, 175, 175 ) )
         
-        Sssizer_p = wx.BoxSizer(wx.VERTICAL)
+        Sssizer_p = wx.BoxSizer( wx.VERTICAL )
         
-        Ssssizer_p = wx.BoxSizer(wx.VERTICAL)
+        Ssssizer_p = wx.BoxSizer( wx.VERTICAL )
         
-        self.QWHtml = wx.html.HtmlWindow(self.Panel_practice_2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.html.HW_NO_SELECTION|wx.html.HW_SCROLLBAR_NEVER)
-        Ssssizer_p.Add(self.QWHtml, 1, wx.EXPAND|wx.BOTTOM, 5)
+        self.QWHtml = wx.html.HtmlWindow( self.Panel_practice_2, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.html.HW_NO_SELECTION|wx.html.HW_SCROLLBAR_NEVER )
+        Ssssizer_p.Add( self.QWHtml, 1, wx.EXPAND|wx.BOTTOM, 5 )
         
-        self.Qgauge = wx.Gauge(self.Panel_practice_2, wx.ID_ANY, 100, wx.DefaultPosition, wx.Size(-1,10), wx.GA_HORIZONTAL)
-        self.Qgauge.SetValue(0) 
+        self.Qgauge = wx.Gauge( self.Panel_practice_2, wx.ID_ANY, 100, wx.DefaultPosition, wx.Size( -1,10 ), wx.GA_HORIZONTAL )
+        self.Qgauge.SetValue( 0 ) 
         self.Qgauge.Hide()
         
+        Ssssizer_p.Add( self.Qgauge, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        
-        self.Qctext = wx.TextCtrl(self.Panel_practice_2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(-1,100), wx.TE_LEFT|wx.TE_MULTILINE|wx.TE_NOHIDESEL|wx.TE_PROCESS_ENTER|wx.TE_WORDWRAP)
-        self.Qctext.SetFont(wx.Font(12, 70, 90, 90, False, wx.EmptyString))
+        self.Qctext = wx.TextCtrl( self.Panel_practice_2, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,100 ), wx.TE_LEFT|wx.TE_MULTILINE|wx.TE_NOHIDESEL|wx.TE_PROCESS_ENTER|wx.TE_WORDWRAP )
+        self.Qctext.SetFont( wx.Font( 12, 70, 90, 90, False, wx.EmptyString ) )
         self.Qctext.Hide()
         
-        Ssssizer_p.Add(self.Qctext, 0, wx.ALL|wx.EXPAND, 5)
-        
+        Ssssizer_p.Add( self.Qctext, 0, wx.ALL|wx.EXPAND, 5 )
         
         QlistBoxChoices = []
-        self.QlistBox = wx.ListBox(self.Panel_practice_2, wx.ID_ANY, wx.DefaultPosition, wx.Size(-1,160), QlistBoxChoices, wx.LB_NEEDED_SB|wx.LB_SINGLE)
-        self.QlistBox.SetFont(wx.Font(15, 70, 90, 92, False, wx.EmptyString))
-        self.QlistBox.SetForegroundColour(wx.Colour(125, 125, 125))
+        self.QlistBox = wx.ListBox( self.Panel_practice_2, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,200 ), QlistBoxChoices, wx.LB_NEEDED_SB|wx.LB_SINGLE )
+        self.QlistBox.SetFont( wx.Font( 18, 70, 90, 92, False, wx.EmptyString ) )
+        self.QlistBox.SetForegroundColour( wx.Colour( 125, 125, 125 ) )
         self.QlistBox.Hide()
         
-        Ssssizer_p.Add(self.QlistBox, 0, wx.ALL|wx.EXPAND, 5)
+        Ssssizer_p.Add( self.QlistBox, 0, wx.ALL|wx.EXPAND, 5 )
         
         
-        Ssssizer_p.Add(self.Qgauge, 0, wx.ALL|wx.EXPAND, 5)
+        Sssizer_p.Add( Ssssizer_p, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
+        Sssssizer_p = wx.BoxSizer( wx.HORIZONTAL )
         
-        Sssizer_p.Add(Ssssizer_p, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5)
-        
-        Sssssizer_p = wx.BoxSizer(wx.HORIZONTAL)
-        
-        self.Q_btn_no = wx.Button(self.Panel_practice_2, wx.ID_ANY, u"Nope", wx.DefaultPosition, wx.Size(-1,40), 0)
-        self.Q_btn_no.SetBackgroundColour(wx.Colour(221, 166, 170))
+        self.Q_btn_no = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Nope", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+        self.Q_btn_no.SetBackgroundColour( wx.Colour( 221, 166, 170 ) )
         self.Q_btn_no.Hide()
         
-        Sssssizer_p.Add(self.Q_btn_no, 1, wx.ALL|wx.EXPAND, 5)
+        Sssssizer_p.Add( self.Q_btn_no, 1, wx.ALL|wx.EXPAND, 5 )
         
-        self.Q_btn_show = wx.Button(self.Panel_practice_2, wx.ID_ANY, u"Show Answer", wx.DefaultPosition, wx.Size(-1,40), 0)
-        self.Q_btn_show.SetBackgroundColour(wx.Colour(224, 224, 224))
+        self.Q_btn_show = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Show Answer", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+        self.Q_btn_show.SetBackgroundColour( wx.Colour( 224, 224, 224 ) )
         self.Q_btn_show.Hide()
         
-        Sssssizer_p.Add(self.Q_btn_show, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5)
+        Sssssizer_p.Add( self.Q_btn_show, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.Q_btn_end = wx.Button(self.Panel_practice_2, wx.ID_ANY, u"Ok", wx.DefaultPosition, wx.Size(-1,40), 0)
-        self.Q_btn_end.SetBackgroundColour(wx.Colour(224, 224, 224))
+        self.Q_btn_end = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Ok", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+        self.Q_btn_end.SetBackgroundColour( wx.Colour( 224, 224, 224 ) )
         self.Q_btn_end.Hide()
         
-        Sssssizer_p.Add(self.Q_btn_end, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5)
+        Sssssizer_p.Add( self.Q_btn_end, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.Q_btn_next4 = wx.Button(self.Panel_practice_2, wx.ID_ANY, u"Ok", wx.DefaultPosition, wx.Size(-1,40), 0)
+        self.Q_btn_next4 = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Ok", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
         self.Q_btn_next4.Hide()
         
-        Sssssizer_p.Add(self.Q_btn_next4, 1, wx.ALL, 5)
+        Sssssizer_p.Add( self.Q_btn_next4, 1, wx.ALL, 5 )
         
-        self.Q_btn_ok2 = wx.Button(self.Panel_practice_2, wx.ID_ANY, u"Next Sentence", wx.DefaultPosition, wx.Size(-1,40), 0)
+        self.Q_btn_ok2 = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Next Sentence", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
         self.Q_btn_ok2.Hide()
         
-        Sssssizer_p.Add(self.Q_btn_ok2, 1, wx.ALL, 5)
+        Sssssizer_p.Add( self.Q_btn_ok2, 1, wx.ALL, 5 )
         
-        self.Q_btn_play3 = wx.BitmapButton(self.Panel_practice_2, wx.ID_ANY, wx.ArtProvider.GetBitmap(u"gtk-media-play", wx.ART_MENU), wx.DefaultPosition, wx.Size(100,-1), wx.BU_AUTODRAW)
+        self.Q_btn_play3 = wx.BitmapButton( self.Panel_practice_2, wx.ID_ANY, wx.ArtProvider.GetBitmap( u"gtk-media-play", wx.ART_MENU ), wx.DefaultPosition, wx.Size( 100,-1 ), wx.BU_AUTODRAW )
         self.Q_btn_play3.Hide()
         
-        Sssssizer_p.Add(self.Q_btn_play3, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5)
+        Sssssizer_p.Add( self.Q_btn_play3, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.Q_btn_ok = wx.Button(self.Panel_practice_2, wx.ID_ANY, u"I Got It", wx.DefaultPosition, wx.Size(-1,40), 0)
-        self.Q_btn_ok.SetBackgroundColour(wx.Colour(204, 225, 170))
+        self.Q_btn_ok = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"I Got It", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+        self.Q_btn_ok.SetBackgroundColour( wx.Colour( 204, 225, 170 ) )
         self.Q_btn_ok.Hide()
         
-        Sssssizer_p.Add(self.Q_btn_ok, 1, wx.ALL|wx.EXPAND, 5)
+        Sssssizer_p.Add( self.Q_btn_ok, 1, wx.ALL|wx.EXPAND, 5 )
         
-        self.Qrestartf = wx.Button(self.Panel_practice_2, wx.ID_ANY, u"Restart", wx.DefaultPosition, wx.Size(-1,40), 0)
+        self.Qrestartf = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Restart", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
         self.Qrestartf.Hide()
         
-        Sssssizer_p.Add(self.Qrestartf, 0, wx.ALL, 5)
+        Sssssizer_p.Add( self.Qrestartf, 0, wx.ALL, 5 )
         
         
-        Sssizer_p.Add(Sssssizer_p, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5)
+        Sssizer_p.Add( Sssssizer_p, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5 )
         
         
-        self.Panel_practice_2.SetSizer(Sssizer_p)
+        self.Panel_practice_2.SetSizer( Sssizer_p )
         self.Panel_practice_2.Layout()
-        Sssizer_p.Fit(self.Panel_practice_2)
-        Ssizer_p.Add(self.Panel_practice_2, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        Sssizer_p.Fit( self.Panel_practice_2 )
+        Ssizer_p.Add( self.Panel_practice_2, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
         
-        Sizer_p.Add(Ssizer_p, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5)
+        Sizer_p.Add( Ssizer_p, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
         
-        self.panel_practice.SetSizer(Sizer_p)
+        self.panel_practice.SetSizer( Sizer_p )
         self.panel_practice.Layout()
-        Sizer_p.Fit(self.panel_practice)
-        Ssizer_practice.Add(self.panel_practice, 1, wx.EXPAND|wx.ALIGN_RIGHT, 2)
+        Sizer_p.Fit( self.panel_practice )
+        Ssizer_practice.Add( self.panel_practice, 1, wx.EXPAND|wx.ALIGN_RIGHT, 2 )
         
         
-        Sizer_horizontal.Add(Ssizer_practice, 1, wx.EXPAND|wx.ALL, 5)
+        Sizer_horizontal.Add( Ssizer_practice, 1, wx.EXPAND|wx.ALL, 5 )
         
         
-        Sizer_practice.Add(Sizer_horizontal, 1, wx.EXPAND, 20)
+        Sizer_practice.Add( Sizer_horizontal, 1, wx.EXPAND, 20 )
         
         
-        self.tab_practice.SetSizer(Sizer_practice)
+        self.tab_practice.SetSizer( Sizer_practice )
         self.tab_practice.Layout()
-        Sizer_practice.Fit(self.tab_practice)
-        self.m_notebook1.AddPage(self.tab_practice, u"Practice", False)
-        
-        #===============================================================
+        Sizer_practice.Fit( self.tab_practice )
+        self.m_notebook1.AddPage( self.tab_practice, u"Practice", False )
         self.tab_learning = wx.Panel( self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         Sizer_learning = wx.BoxSizer( wx.VERTICAL )
         
@@ -733,7 +702,7 @@ class Topic (wx.Frame):
         bSizer57.Add( self.m_searchCtrl1, 1, wx.ALL, 5 )
         
         self.m_button14 = wx.Button( self.m_panel31, wx.ID_ANY, u"Mark all as learnt", wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer57.Add( self.m_button14, 1, wx.RIGHT|wx.LEFT, 5 )
+        bSizer57.Add( self.m_button14, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         
         self.m_panel31.SetSizer( bSizer57 )
@@ -743,30 +712,25 @@ class Topic (wx.Frame):
         
         chk_learning_lstChoices = []
         self.chk_learning_lst = wx.CheckListBox( self.tab_learning, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, chk_learning_lstChoices, 0 )
-        Sizer_learning.Add( self.chk_learning_lst, 1, wx.EXPAND|wx.RIGHT, 5 )
+        Sizer_learning.Add( self.chk_learning_lst, 1, wx.EXPAND, 5 )
         
         
         self.tab_learning.SetSizer( Sizer_learning )
         self.tab_learning.Layout()
         Sizer_learning.Fit( self.tab_learning )
         self.m_notebook1.AddPage( self.tab_learning, u"Learning", False )
-        
-        #===============================================================
-        self.tab_learned = wx.Panel(self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL)
-        Sizer_learned = wx.BoxSizer(wx.VERTICAL)
+        self.tab_learned = wx.Panel( self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        Sizer_learned = wx.BoxSizer( wx.VERTICAL )
         
         chk_learned_lstChoices = []
-        self.chk_learned_lst = wx.CheckListBox(self.tab_learned, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, chk_learned_lstChoices, 0)
-        Sizer_learned.Add(self.chk_learned_lst, 1, wx.EXPAND, 5)
+        self.chk_learned_lst = wx.CheckListBox( self.tab_learned, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, chk_learned_lstChoices, 0 )
+        Sizer_learned.Add( self.chk_learned_lst, 1, wx.EXPAND, 5 )
         
         
-        self.tab_learned.SetSizer(Sizer_learned)
+        self.tab_learned.SetSizer( Sizer_learned )
         self.tab_learned.Layout()
-        Sizer_learned.Fit(self.tab_learned)
-        self.m_notebook1.AddPage(self.tab_learned, u"Learned", False)
-        
-        #===============================================================
-
+        Sizer_learned.Fit( self.tab_learned )
+        self.m_notebook1.AddPage( self.tab_learned, u"Learned", False )
         self.tab_overview = wx.Panel( self.m_notebook1, wx.ID_ANY, wx.DefaultPosition, wx.Size( 300,100 ), wx.TAB_TRAVERSAL )
         Sizer_overview = wx.BoxSizer( wx.HORIZONTAL )
         
@@ -775,118 +739,95 @@ class Topic (wx.Frame):
         
         space_a = wx.BoxSizer( wx.VERTICAL )
         
-        sb_activity = wx.StaticBoxSizer( wx.StaticBox( self.p_widgets, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
-        
-        self.m_panel37 = wx.Panel( self.p_widgets, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        bSizer47 = wx.BoxSizer( wx.VERTICAL )
-        
-        self.label_active_topic = wx.StaticText( self.m_panel37, wx.ID_ANY, u"Topic name", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.label_active_topic.Wrap( -1 )
-        self.label_active_topic.SetFont( wx.Font( 14, 70, 90, 90, False, wx.EmptyString ) )
-        self.label_active_topic.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_CAPTIONTEXT ) )
-        self.label_active_topic.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_APPWORKSPACE ) )
-        
-        bSizer47.Add( self.label_active_topic, 0, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 2 )
-        
-        bSizer53 = wx.BoxSizer( wx.VERTICAL )
-        
-        self.label_active_topic_info1 = wx.StaticText( self.m_panel37, wx.ID_ANY, u"Topic name", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.label_active_topic_info1.Wrap( -1 )
-        self.label_active_topic_info1.SetFont( wx.Font( 8, 70, 90, 90, False, wx.EmptyString ) )
-        self.label_active_topic_info1.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_CAPTIONTEXT ) )
-        self.label_active_topic_info1.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_APPWORKSPACE ) )
-        
-        bSizer53.Add( self.label_active_topic_info1, 0, wx.ALL, 5 )
-        
-        self.label_active_topic_info2 = wx.StaticText( self.m_panel37, wx.ID_ANY, u"Topic name", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.label_active_topic_info2.Wrap( -1 )
-        self.label_active_topic_info2.SetFont( wx.Font( 8, 70, 90, 90, False, wx.EmptyString ) )
-        self.label_active_topic_info2.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_CAPTIONTEXT ) )
-        self.label_active_topic_info2.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_APPWORKSPACE ) )
-        
-        bSizer53.Add( self.label_active_topic_info2, 0, wx.ALL, 5 )
-        
-        
-        bSizer47.Add( bSizer53, 0, 0, 5 )
-        
-        self.m_button111 = wx.Button( self.m_panel37, wx.ID_ANY, u"Active", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
-        self.m_button111.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-        
-        bSizer47.Add( self.m_button111, 0, wx.ALIGN_RIGHT|wx.TOP|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.m_staticline1 = wx.StaticLine( self.m_panel37, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
-        bSizer47.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
-        
-        bSizer55 = wx.BoxSizer( wx.VERTICAL )
-        
-        self.m_staticText15 = wx.StaticText( self.m_panel37, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.m_staticText15.Wrap( -1 )
-        self.m_staticText15.Hide()
-        
-        bSizer55.Add( self.m_staticText15, 1, wx.ALL|wx.EXPAND, 5 )
-        
-        bSizer571 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.m_button13 = wx.Button( self.m_panel37, wx.ID_ANY, u"Share", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
-        self.m_button13.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-        
-        bSizer571.Add( self.m_button13, 0, wx.TOP|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.m_button12 = wx.Button( self.m_panel37, wx.ID_ANY, u"Files", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
-        self.m_button12.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
-        
-        bSizer571.Add( self.m_button12, 0, wx.TOP|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        
-        bSizer55.Add( bSizer571, 0, wx.ALIGN_BOTTOM|wx.ALIGN_RIGHT, 5 )
-        
-        
-        bSizer47.Add( bSizer55, 1, wx.EXPAND|wx.TOP, 5 )
-        
-        
-        self.m_panel37.SetSizer( bSizer47 )
-        self.m_panel37.Layout()
-        bSizer47.Fit( self.m_panel37 )
-        sb_activity.Add( self.m_panel37, 1, wx.EXPAND, 5 )
-        
-        
-        space_a.Add( sb_activity, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-        
         
         Sizer_spaces.Add( space_a, 1, wx.EXPAND, 5 )
+        
+        space_b = wx.BoxSizer( wx.VERTICAL )
+        
+        sb_activity1 = wx.StaticBoxSizer( wx.StaticBox( self.p_widgets, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
+        
+        bSizer612 = wx.BoxSizer( wx.VERTICAL )
+        
+        bSizer62 = wx.BoxSizer( wx.VERTICAL )
+        
+        self.label_active_topic = wx.StaticText( sb_activity1.GetStaticBox(), wx.ID_ANY, u"Topic name", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.label_active_topic.Wrap( -1 )
+        self.label_active_topic.SetFont( wx.Font( 14, 70, 90, 90, False, wx.EmptyString ) )
+        
+        bSizer62.Add( self.label_active_topic, 0, wx.ALIGN_CENTER_VERTICAL|wx.RIGHT|wx.LEFT, 5 )
+        
+        self.label_active_topic_info1 = wx.StaticText( sb_activity1.GetStaticBox(), wx.ID_ANY, u"Topic name", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.label_active_topic_info1.Wrap( -1 )
+        self.label_active_topic_info1.SetFont( wx.Font( 8, 70, 90, 90, False, wx.EmptyString ) )
+        
+        bSizer62.Add( self.label_active_topic_info1, 0, wx.ALL, 5 )
+        
+        self.label_active_topic_info2 = wx.StaticText( sb_activity1.GetStaticBox(), wx.ID_ANY, u"Topic name", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.label_active_topic_info2.Wrap( -1 )
+        self.label_active_topic_info2.SetFont( wx.Font( 8, 70, 90, 90, False, wx.EmptyString ) )
+        
+        bSizer62.Add( self.label_active_topic_info2, 0, wx.ALL, 5 )
+        
+        
+        bSizer612.Add( bSizer62, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5 )
+        
+        bSizer60 = wx.BoxSizer( wx.VERTICAL )
+        
+        self.btn_active_topic = wx.Button( sb_activity1.GetStaticBox(), wx.ID_ANY, u"Active", wx.DefaultPosition, wx.Size( -1,22 ), 0 )
+        self.btn_active_topic.SetFont( wx.Font( 9, 70, 90, 90, False, wx.EmptyString ) )
+        
+        bSizer60.Add( self.btn_active_topic, 1, wx.ALIGN_BOTTOM|wx.ALL, 5 )
+        
+        
+        bSizer612.Add( bSizer60, 0, wx.ALIGN_RIGHT, 5 )
+        
+        
+        sb_activity1.Add( bSizer612, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        
+        
+        space_b.Add( sb_activity1, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+        
+        
+        Sizer_spaces.Add( space_b, 1, wx.EXPAND, 5 )
         
         space_c = wx.BoxSizer( wx.VERTICAL )
         
         sb_activity12 = wx.StaticBoxSizer( wx.StaticBox( self.p_widgets, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
         
-        self.m_panel35 = wx.Panel( self.p_widgets, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.m_panel35.SetMinSize( wx.Size( 360,-1 ) )
-        #self.m_panel35.SetMaxSize( wx.Size( 350,-1 ) )
+        self.p_topics = wx.Panel( sb_activity12.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+        self.p_topics.SetBackgroundColour( wx.Colour( 128, 128, 128 ) )
         
         bSizer4722 = wx.BoxSizer( wx.VERTICAL )
         
-        self.l_topics = wx.StaticText( self.m_panel35, wx.ID_ANY, u"Topics", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.l_topics.Wrap( -1 )
-        self.l_topics.SetFont( wx.Font( 8, 70, 90, 90, False, wx.EmptyString ) )
-        self.l_topics.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_CAPTIONTEXT ) )
-        self.l_topics.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-        
-        bSizer4722.Add( self.l_topics, 0, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 2 )
-        
-        self.t_lst = wx.ListCtrl( self.m_panel35, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_AUTOARRANGE|wx.LC_HRULES|wx.LC_ICON|wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL|wx.LC_SMALL_ICON )
-        bSizer4722.Add( self.t_lst, 1, wx.EXPAND|wx.BOTTOM, 8 )
+        self.t_lst = wx.ListCtrl( self.p_topics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_AUTOARRANGE|wx.LC_HRULES|wx.LC_ICON|wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL|wx.LC_SMALL_ICON )
+        bSizer4722.Add( self.t_lst, 1, wx.EXPAND, 5 )
         
         
-        self.m_panel35.SetSizer( bSizer4722 )
-        self.m_panel35.Layout()
-        bSizer4722.Fit( self.m_panel35 )
-        sb_activity12.Add( self.m_panel35, 1, 0, 5 )
+        self.p_topics.SetSizer( bSizer4722 )
+        self.p_topics.Layout()
+        bSizer4722.Fit( self.p_topics )
+        sb_activity12.Add( self.p_topics, 1, wx.EXPAND|wx.ALIGN_CENTER_VERTICAL|wx.ALIGN_CENTER_HORIZONTAL, 3 )
+        
+        bSizer6121 = wx.BoxSizer( wx.VERTICAL )
+        
+        bSizer622 = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.b_new_topic = wx.Button( sb_activity12.GetStaticBox(), wx.ID_ANY, u"Add New", wx.DefaultPosition, wx.Size( -1,22 ), 0 )
+        self.b_new_topic.SetFont( wx.Font( 7, 70, 90, 90, False, wx.EmptyString ) )
+        
+        bSizer622.Add( self.b_new_topic, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
         
-        space_c.Add( sb_activity12, 1, wx.ALIGN_RIGHT|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+        bSizer6121.Add( bSizer622, 0, wx.ALIGN_RIGHT, 5 )
         
         
-        Sizer_spaces.Add( space_c, 0, wx.EXPAND, 5 )
+        sb_activity12.Add( bSizer6121, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
+        
+        
+        space_c.Add( sb_activity12, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+        
+        
+        Sizer_spaces.Add( space_c, 1, wx.EXPAND, 5 )
         
         
         self.p_widgets.SetSizer( Sizer_spaces )
@@ -900,6 +841,7 @@ class Topic (wx.Frame):
         self.m_notebook1.AddPage( self.tab_overview, u"Overview", False )
         
         bSizer1.Add( self.m_notebook1, 1, wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+        
         
       
 
@@ -989,7 +931,7 @@ class Topic (wx.Frame):
         self.Bind(wx.EVT_MENU, self.change_font_viewer, id = self.m_menuItem30.GetId())
         self.Bind(wx.EVT_MENU, self.change_font_viewer, id = self.m_menuItem31.GetId())
         self.Bind(wx.EVT_MENU, self.change_font_viewer, id = self.m_menuItem32.GetId())
-        self.Bind(wx.EVT_MENU, self.change_font_viewer, id = self.m_menuItem33.GetId())
+        #self.Bind(wx.EVT_MENU, self.change_font_viewer, id = self.m_menuItem33.GetId())
         self.Bind(wx.EVT_MENU, self.change_font_viewer, id = self.m_menuItem35.GetId())
         self.Bind(wx.EVT_MENU, self.change_font_viewer, id = self.m_menuItem36.GetId())
         self.Bind(wx.EVT_MENU, self.change_font_viewer, id = self.m_menuItem37.GetId())
@@ -1086,7 +1028,7 @@ class Topic (wx.Frame):
         
         
         # tab overview -----------------------------------------------
-        self.m_button111.Bind(wx.EVT_LEFT_UP, self.active_topic)
+        self.btn_active_topic.Bind(wx.EVT_LEFT_UP, self.active_topic)
         
         # practice section events
         
@@ -1143,7 +1085,7 @@ class Topic (wx.Frame):
         #self.words_list.InsertColumn(1, '', width=115)
         self.compact_view.Check(self.stts_slidemode)
         
-        self.m_menuspanel.Check(self.stts_spanel)
+        #self.m_menuspanel.Check(self.stts_spanel)
         self.icon = wx.Icon(u"/usr/share/sniparse/images/logo.png", wx.BITMAP_TYPE_PNG)
         self.SetIcon(self.icon)
         self.QWHtml.SetPage(scrnHtml.QStart(info=''))
@@ -1183,9 +1125,7 @@ class Topic (wx.Frame):
         
         
     def active_topic(self, event):
-        self.m_button111.Enable(False)
-        self.m_button12.Enable(True)
-        self.m_button13.Enable(True)
+        self.btn_active_topic.Enable(False)
         self.tpc = self.active_tpc
         self.Config.read(self.cfgfile)
         self.Config.set('Topic', 'name', self.tpc)
@@ -1213,22 +1153,17 @@ class Topic (wx.Frame):
         index = event.GetIndex()
         tpc = self.lst_tpcs[::-1][index]
         if tpc != self.tpc:
-            self.m_button111.Enable(True)
-            self.m_button12.Enable(False)
-            self.m_button13.Enable(False)
+            self.btn_active_topic.Enable(True)
         else:
-            self.m_button111.Enable(False)
-            self.m_button12.Enable(True)
-            self.m_button13.Enable(True)
+            self.btn_active_topic.Enable(False)
+            
         self.active_tpc = tpc
         self.show_topic_info()
 
 
     def on_change_page(self, event):
         self.active_tpc = self.tpc
-        self.m_button111.Enable(False)
-        self.m_button12.Enable(True)
-        self.m_button13.Enable(True)
+        self.btn_active_topic.Enable(False)
         self.show_topic_info()
 
     def onKeyPress(self, event):
@@ -1419,7 +1354,7 @@ class Topic (wx.Frame):
         # ------------------------------------
         self.p_media.Hide()
         # ------------------------------------
-        self.SetTitle(u'Idiomind - ' + self.tpc)
+        self.SetTitle(u'Sniparse - ' + self.tpc)
         
         if self.stts_topic != 20:
             self.stts_topictype = 0
@@ -1481,7 +1416,7 @@ class Topic (wx.Frame):
         
         
         self.active_tpc = self.tpc
-        self.m_button111.Enable(False)
+        self.btn_active_topic.Enable(False)
         self.show_topic_info()
         
         self.Layout()

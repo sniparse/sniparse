@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 app_logo = '//usr/share/sniparse/images/logo_mini.png'
-app_name = 'Idiomind'
+app_name = 'Sniparse'
 app_version = '1.2'
 app_comments = 'Vocabulary Learning Tool'
 app_copyright = 'Copyright (C) 2015 Robin Palatnik'
-app_website = 'http://idiomind.sourceforge.net'
+app_website = 'http://sniparse.sourceforge.net'
 import wx
 
 class About(wx.Frame):

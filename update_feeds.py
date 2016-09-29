@@ -53,7 +53,7 @@ class check_download(object):
         
         self.tpc_dir = tpc_dir
         pynotify.init('basic')
-        osd = pynotify.Notification("Updating...", "Checking for new entries", "idiomind")
+        osd = pynotify.Notification("Updating...", "Checking for new entries", "sniparse")
         osd.show()
         
         self.get_items()

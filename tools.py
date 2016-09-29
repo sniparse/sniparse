@@ -25,7 +25,7 @@ class brownser ():
         import urllib2 
 
         try:
-            urllib2.urlopen(urllib2.Request("http://idiomind.com.ar/"))
+            urllib2.urlopen(urllib2.Request("http://sniparse.com.ar/"))
             update = True
         except:
             update = False

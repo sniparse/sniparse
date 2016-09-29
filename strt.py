@@ -6,7 +6,7 @@ import re
 import glob
 from var import *
 import sqlite3
-import pynotify
+#import pynotify
 import time
 from datetime import datetime, date
 import os
@@ -90,7 +90,7 @@ while index < len(inx):
     index += 1
 
 
-class IdiomindIndicator:
+class SniparseIndicator:
 
     cfg = os.getenv('HOME') + '/.config/sniparse/.menu'
     def __init__(self):
@@ -163,7 +163,7 @@ class IdiomindIndicator:
         popup_menu.append(item)
         item = gtk.SeparatorMenuItem()
         popup_menu.append(item)
-        item = self.create_menu_label("Quit Idiomind")
+        item = self.create_menu_label("Quit Sniparse")
         item.connect("activate", self.on_Quit_click)
         popup_menu.append(item)
         
@@ -203,7 +203,7 @@ class IdiomindIndicator:
         os.system("killall play")
 
     def on_Quit_click(self, widget):
-        os.system("/usr/share/idiomind/stop.sh 1")
+        os.system("/usr/share/sniparse/stop.sh 1")
         gtk.main_quit()
     
     def on_Topic_Changed(self, filemonitor, file, other_file, event_type):
@@ -212,7 +212,7 @@ class IdiomindIndicator:
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, lambda signal, frame: gtk.main_quit())
-    i = IdiomindIndicator()
+    i = SniparseIndicator()
     file = gio.File(i.cfg)
     monitor = file.monitor_file()
     monitor.connect("changed", i.on_Topic_Changed)      
