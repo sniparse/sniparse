@@ -147,12 +147,12 @@ class Topics (wx.Frame):
         Config.write(cfgwrt)
         cfgwrt.close()
         time.sleep(0.5)
-        pynotify.init("image")
-        n = pynotify.Notification(self.tpc,
-          "Is your topic now",
-          "/usr/share/sniparse/images/logo.png",
-       )
-        n.show()
+        #pynotify.init("image")
+        #n = pynotify.Notification(self.tpc,
+          #"Is your topic now",
+          #"/usr/share/sniparse/images/logo.png",
+       #)
+        #n.show()
         menu = open(os.getenv('HOME') + '/.config/sniparse/.menu','w')
         print >>menu, self.tpc
         

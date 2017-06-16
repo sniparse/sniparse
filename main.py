@@ -1729,7 +1729,7 @@ class Topic (wx.Frame):
         self.f1 = [i[8] for i in flds][0]
         self.f2 = [i[9] for i in flds][0]
         self.audio = self.tpc_dir + '/' + id_media + '.mp3'
-        self.image = self.lng_dir + "/.share/images/" + self.trgt.lower() + '-0.jpg'
+        self.image = self.lng_dir + "/.share/images/" + self.trgt.lower() + '-1.jpg'
 
         if not os.path.exists(self.image) and self.stts_viewimg == True:
             
