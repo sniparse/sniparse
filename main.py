@@ -619,18 +619,21 @@ class Topic (wx.Frame):
         
         self.Q_btn_no = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Nope", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
         self.Q_btn_no.SetBackgroundColour( wx.Colour( 221, 166, 170 ) )
+        self.Q_btn_no.SetForegroundColour((60, 60, 60))
         self.Q_btn_no.Hide()
         
         Sssssizer_p.Add( self.Q_btn_no, 1, wx.ALL|wx.EXPAND, 5 )
         
         self.Q_btn_show = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Show Answer", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
         self.Q_btn_show.SetBackgroundColour( wx.Colour( 224, 224, 224 ) )
+        self.Q_btn_show.SetForegroundColour((60, 60, 60))
         self.Q_btn_show.Hide()
         
         Sssssizer_p.Add( self.Q_btn_show, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.Q_btn_end = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"Ok", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
         self.Q_btn_end.SetBackgroundColour( wx.Colour( 224, 224, 224 ) )
+        self.Q_btn_end.SetForegroundColour((60, 60, 60))
         self.Q_btn_end.Hide()
         
         Sssssizer_p.Add( self.Q_btn_end, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -652,6 +655,7 @@ class Topic (wx.Frame):
         
         self.Q_btn_ok = wx.Button( self.Panel_practice_2, wx.ID_ANY, u"I Got It", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
         self.Q_btn_ok.SetBackgroundColour( wx.Colour( 204, 225, 170 ) )
+        self.Q_btn_ok.SetForegroundColour((60, 60, 60))
         self.Q_btn_ok.Hide()
         
         Sssssizer_p.Add( self.Q_btn_ok, 1, wx.ALL|wx.EXPAND, 5 )
@@ -1086,7 +1090,7 @@ class Topic (wx.Frame):
         self.compact_view.Check(self.stts_slidemode)
         
         #self.m_menuspanel.Check(self.stts_spanel)
-        self.icon = wx.Icon(u"/usr/share/sniparse/images/logo.png", wx.BITMAP_TYPE_PNG)
+        self.icon = wx.Icon(u"/usr/share/sniparse/images/cnn.png", wx.BITMAP_TYPE_PNG)
         self.SetIcon(self.icon)
         self.QWHtml.SetPage(scrnHtml.QStart(info=''))
         self.Qimg = wx.Image('/usr/share/sniparse/images/f.png', wx.BITMAP_TYPE_ANY).ConvertToBitmap()
@@ -3075,6 +3079,8 @@ class Topic (wx.Frame):
             bm = self.pract_tool_convertimg(image)
             exec("self.Q" + str(q) + "_%s" % n + ".SetBitmap(bm)") in globals(), locals()
             n = n-1
+            self.Refresh()
+       
 
 
     def pract_tool_convertimg(self, image):
