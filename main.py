@@ -272,7 +272,7 @@ class Topic (wx.Frame):
         
         self.p_media = wx.Panel( self.p_image, wx.ID_ANY, wx.DefaultPosition, wx.Size( 280,20 ), wx.TAB_TRAVERSAL )
         self.p_media.SetBackgroundColour( wx.Colour( 208, 208, 208 ) )
-        self.p_media.SetMinSize( wx.Size( -1,20 ) )
+        self.p_media.SetMinSize( wx.Size( -1,30 ) )
         
         bSizer5021 = wx.BoxSizer( wx.HORIZONTAL )
         
