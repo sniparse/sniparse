@@ -109,7 +109,7 @@ class Topics (wx.Frame):
                 self.il.Add(wx.Bitmap(sdir + '/' + dimg + s))
             else:
                 s = self.get_stts(t)
-                self.il.Add(wx.Bitmap(sdir +'/' + dimg + str(s)))
+                self.il.Add(wx.Bitmap(sdir + '/' + dimg + str(s)))
             self.t_lst.InsertStringItem(0, t)
             self.t_lst.SetItemImage(0, inx.index(t))
 

@@ -1431,40 +1431,39 @@ class Topic (wx.Frame):
         
     # ===============================
     def overview_load(self):
-        #self.t_lst.ClearAll()
-        #self.il = wx.ImageList(42, 42)
-        #self.t_lst.SetImageList(self.il, wx.IMAGE_LIST_SMALL)
-        #self.t_lst.InsertColumn(0, '')
-        #self.t_lst.SetColumnWidth(0, 350)
-        #dimg = '/usr/share/sniparse/images/'
+        self.t_lst.ClearAll()
+        self.il = wx.ImageList(42, 42)
+        self.t_lst.SetImageList(self.il, wx.IMAGE_LIST_SMALL)
+        self.t_lst.InsertColumn(0, '')
+        self.t_lst.SetColumnWidth(0, 350)
+        dimg = '/usr/share/sniparse/images/'
         
-        #if not os.path.exists(self.fl_jsn):
-            #with open(self.fl_jsn, 'wb') as index:
-                #json.dump({'own': [], 'fd': [], 'itll': [], 'tpcs': []}, index, indent=4)
+        if not os.path.exists(self.fl_jsn):
+            with open(self.fl_jsn, 'wb') as index:
+                json.dump({'own': [], 'fd': [], 'itll': [], 'tpcs': []}, index, indent=4)
             
-        #with open(self.fl_jsn, 'rb') as index:
-            #indx = json.load(index)
-        #self.lst_tpcs = indx['tpcs']
+        with open(self.fl_jsn, 'rb') as index:
+            indx = json.load(index)
+        self.lst_tpcs = indx['tpcs']
 
-        #for t in self.lst_tpcs:
-            #try:
-                #cnf = open(self.lng_dir + '/' + t + '/review.cfg').readlines()
-            #except:
-                #self.get_stts(t)
+        for t in self.lst_tpcs:
+            try:
+                cnf = open(self.lng_dir + '/' + t + '/review.cfg').readlines()
+            except:
+                self.get_stts(t)
                 
-            #cnf = cnf[0].strip()
+            cnf = cnf[0].strip()
             
-            #if len(cnf.split("|")) == 3:
-                #cnf = cnf.split("|")
-                #s = cnf[0].rstrip('\n')
-                #self.il.Add(wx.Bitmap(dimg + s))
-            #else:
-                #s = self.get_stts(t)
-                #self.il.Add(wx.Bitmap(dimg + str(s)))
-            #self.t_lst.InsertStringItem(0, t)
-            #self.t_lst.SetItemImage(0, self.lst_tpcs.index(t))
-            pass
-
+            if len(cnf.split("|")) == 3:
+                cnf = cnf.split("|")
+                s = cnf[0].rstrip('\n')
+                self.il.Add(wx.Bitmap(dimg + s))
+            else:
+                s = self.get_stts(t)
+                self.il.Add(wx.Bitmap(dimg + str(s)))
+            self.t_lst.InsertStringItem(0, t)
+            self.t_lst.SetItemImage(0, self.lst_tpcs.index(t))
+          
         
     def get_stts(self, t):
         try:
